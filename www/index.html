@@ -6,11 +6,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>Ofw</title>
+    
 
     <!-- Path to Framework7 Library CSS-->
     <link rel="stylesheet" href="css/framework7.min.css">
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/ofw.css">
+    
   </head>
   <body>
     <!-- Status bar overlay for fullscreen mode-->
@@ -50,7 +52,7 @@
             <!-- Scrollable page content-->
             <div class="page-content">
               <div class="content-block-title">Welcome &lt;username&gt;</div>
-              <div id="home-map-canvas"></div>
+              <div id="home_map"></div>
               <div class="content-block">
                 
                 <div class="content-block-inner">
@@ -181,15 +183,10 @@
     <script type="text/javascript" src="cordova.js"></script>
     <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="js/framework7.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <!-- Path to your app js-->
     <script type="text/javascript" src="js/ofw-main.js"></script>
     <script type="text/javascript" src="js/ofw-app.js"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-    <script>
-      $(document).ready(function(){
-        ofw.init();
-      })
-    </script>
   </body>
 </html>
