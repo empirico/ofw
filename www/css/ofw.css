@@ -1,4 +1,1 @@
-#home_map {
-    width: 100%;
-    height: 200px;
-}
+@import(home.css);
