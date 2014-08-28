@@ -1,4 +1,9 @@
 var map;
+
+var ofw_data = {
+	loaded_events : [],
+	templates : []
+};
 var ofw = {
 
 	init: function(e){
@@ -14,53 +19,95 @@ var ofw = {
 		            dynamicNavbar: true
 		});
 
-		ofw.build_controls()
-		ofw.events();
-		
-		
-
+		async.series( [
+			ofw.load_templates,
+			ofw.build_controls,
+			ofw.events,
+			
+		]);
 	},
-	build_controls: function() {
+	build_controls: function(cb) {
 		//bind homepage events
 		$$("#create-event").on('click', function() {
-					$.get("event-create.html", function(data){
+			$.get("event-create.html", function(data){
+				$html = '<div class="popup">' + data + "</div>";
+				ofwF7App.popup($html);
 
-						$html = '<div class="popup">' + data + "</div>";
-						ofwF7App.popup($html);
-
-					});
+			});
 		});
+
+		cb(null);
+		console.log("controls loaded");
 	},
-	events: function(){
-		
-		var template;
-		var load_events = function($url, $target, acallback) {
-			$.ajax({
+	event_view: function(eid) {
+			$(ofw_data.loaded_events).each(function(i, element){
+				if (parseInt(element.id) == parseInt(eid)) {
+					var event_view_html = Mustache.render(ofw_data.templates.event_view, element);
+					mainView.loadContent(event_view_html);
+					return false;
+				}
+			});
+	},
+	events: function(cb) {
+			var load_events = function($url, $target, acallback) {
+				$.ajax({
 				  dataType: "json",
 				  url: $url,
 				  success: function(data) {
+
 							$(data).each(function(i, el) {
-								$item = Mustache.render(template, el)
+								item = Mustache.render(ofw_data.templates.event_item, el)
+								$item = $(item);
+								$item.click( function() {
+									ofw.event_view($(this).find(".event-item").data("eid"));
+								});
 								$target.append($item);
+								ofw_data.loaded_events.push(el);
 							})
+
+							
 							acallback(null, "events-loaded");
 						}
 				});
-		}
-		$.get("tpl/event_item.mst", function(tpl) { 
-			template = tpl;
-			var parallel_tasks = [function(callback){
+			};
+		
+			var parallel_tasks = [	function(callback){
 									load_events("json/events_nearby.json", $("#home-tab-nearby-ofws ul"), callback);
-
-									},
+},
 									function(callback){
 										load_events("json/events_friends.json", $("#home-tab-friends-ofws ul"), callback)
-								}];
-			async.parallel(parallel_tasks, function(){
-					console.log("async finished");
+									}
+								];
+
+			async.parallel(parallel_tasks, function() {
+					console.log("events loaded");
+					cb(null);
 					$("#home-events-tabs").removeClass("loading");
 			});
+	},
+	load_templates: function(callback) {
+		
+		var maincb = callback;
+		var template_list = [];
+		if (typeof ofw_data.templates.event_item == "undefined") {
+			template_list.push(function(cb){
+				$.get("tpl/event_item.html", function(tpl) { ofw_data.templates.event_item = tpl });
+				cb(null);
+			})
 			
+		}
+
+		if (typeof ofw_data.templates.event_view == "undefined") {
+			template_list.push(function(cb){
+				$.get("tpl/event_view.html", function(tpl) { ofw_data.templates.event_view = tpl });
+				cb(null);
+			})
+		}
+		
+
+		async.parallel(template_list, function(callback){
+			console.log("templates loaded");
+			maincb();
 		});
 	},
 	utils: {

@@ -1,0 +1,39 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="left"><a href="#" class="back link" data-eventid="{{id}}}"><i class="icon icon-back"></i><span>Back</span></a></div>
+    <div class="right sliding">Event {{ name }}</div>
+  </div>
+</div>
+<div class="pages">
+  <!-- Page, data-page contains page name-->
+  <div data-page="event-view" class="page" id="event-view">
+    <!-- Scrollable page content-->
+    <div class="page-content">
+      <div id="event-map"></div>
+      <div class="event-details">
+        <div class="list-block">
+          <ul>
+              <li class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title">where</div>
+                    {{venue}}
+                  </div>
+              </li>
+              <li class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title">when</div>
+                    today at {{time}}
+                  </div>
+              </li>
+              <li class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title">guests</div>
+                    {{number}}
+                  </div>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
