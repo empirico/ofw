@@ -23,7 +23,7 @@ var ofw = {
 	build_controls: function() {
 		//bind homepage events
 		$$("#create-event").on('click', function() {
-					$.get("event.html", function(data){
+					$.get("event-create.html", function(data){
 
 						$html = '<div class="popup">' + data + "</div>";
 						ofwF7App.popup($html);
@@ -62,11 +62,6 @@ var ofw = {
 			});
 			
 		});
-
-		
-			
-		
-
 	},
 	utils: {
 		init_gmap : function(map_container, $map_options) {
