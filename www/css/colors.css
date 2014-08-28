@@ -54,3 +54,12 @@
 	border-color: #B98747;
 	color: #FFF;
 }
+.navbar-inner {
+
+	background-color:  #9C805C;
+	border-color: #9C805C;
+	color: #FFF;
+}
+.navbar-inner a {
+	color: #FFF;
+}
