@@ -13,6 +13,15 @@ var ofw = {
 			*/
 		});
 		
+		$$("#create-event").on('click', function() {
+
+			$.get("event.html", function(data){
+
+				$html = '<div class="popup">' + data + "</div>";
+				ofwF7App.popup($html);
+
+			});
+		});
 
 	},
 	events: function(){
