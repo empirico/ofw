@@ -1,9 +1,5 @@
 var map;
 
-var ofw_data = {
-	loaded_events : [],
-	templates : []
-};
 var ofw = {
 
 	init: function(e){
@@ -19,11 +15,10 @@ var ofw = {
 		            dynamicNavbar: true
 		});
 
-		async.series( [
+		async.series([
 			ofwConfig.load_templates,
 			ofw.build_controls,
-			ofw.events,
-			
+			ofw.events			
 		]);
 	},
 	build_controls: function(cb) {
@@ -39,24 +34,15 @@ var ofw = {
 		cb(null);
 		console.log("controls loaded");
 	},
-	event_view: function(eid) {
-			$(ofw_data.loaded_events).each(function(i, element){
-				if (parseInt(element.id) == parseInt(eid)) {
-					var event_view_html = Mustache.render(ofwConfig.templates.event_view, element);
-					mainView.loadContent(event_view_html);
-					return false;
-				}
-			});
-	},
 	events: function(cb) {
-		
-			var parallel_tasks = [	
+
+			var tasks = [	
 				function(cback){
 					ofwEvent.getAll({
 						url: ofwConfig.webservice + "/events_nearby.json", 
 						target: $("#home-tab-nearby-ofws ul"),
 						callback: cback,
-						template: ofwConfig.event_item
+						template: function() { return ofwConfig.templates.event_item; }
 					});
 				},
 				function(cback){
@@ -64,12 +50,12 @@ var ofw = {
 							url: ofwConfig.webservice + "/events_friends.json", 
 							target: $("#home-tab-friends-ofws ul"),
 							callback: cback,
-							template: ofwConfig.event_item
+							template: function() { return ofwConfig.templates.event_item; }
 						})
 					}
 				];
 
-			async.parallel(parallel_tasks, function() {
+			async.parallel(tasks, function() {
 					console.log("events loaded");
 					cb(null);
 					$("#home-events-tabs").removeClass("loading");
