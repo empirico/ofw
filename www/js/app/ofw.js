@@ -43,9 +43,6 @@ var ofw = {
 
 			});
 		});
-
-
-
 		cb(null);
 		console.log("controls loaded");
 	},
