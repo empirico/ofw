@@ -1,0 +1,12 @@
+#config 
+	- setup keys and access
+	- setup frameworks
+	- setup filters
+
+#event management
+	- get all
+	- get single
+	- create new
+	- subscribe
+
+#
