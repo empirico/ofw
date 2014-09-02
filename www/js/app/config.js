@@ -1,5 +1,5 @@
 var ofwConfig = {
-	webservice : 'json/',
+	webservice : 'json',
 	events : [],
 	templates: [],
 	search_filter: {},
@@ -7,8 +7,8 @@ var ofwConfig = {
 		
 		var template_list = [];
 		if (typeof ofwConfig.templates.event_item == "undefined") {
-			ofwConfig.templates.push(function(cb){
-				$.get("tpl/event_item.html", function(tpl) { ofwConfig.templates = tpl });
+			template_list.push(function(cb){
+				$.get("tpl/event_item.html", function(tpl) { ofwConfig.templates.event_item = tpl });
 				cb(null);
 			})
 			
@@ -22,7 +22,7 @@ var ofwConfig = {
 		}
 		
 
-		async.parallel(template_list, function(callback){
+		async.parallel(template_list, function(cb){
 			console.log("templates loaded");
 			maincb();
 		});

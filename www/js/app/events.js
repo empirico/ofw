@@ -1,7 +1,7 @@
 var ofwEvent = {
 
 	getAll: function(config){
-
+		console.log(config);
 		$.ajax({
 			dataType: 'json',
 			url: config.url,
