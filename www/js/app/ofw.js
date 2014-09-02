@@ -24,12 +24,27 @@ var ofw = {
 	build_controls: function(cb) {
 		//bind homepage events
 		$$("#create-event").on('click', function() {
-			$.get("event-create.html", function(data){
-				$html = '<div class="popup">' + data + "</div>";
+			$.get("pages/event-create.html", function(create){
+				$html = '<div class="popup event-create">' + create + "</div>";
 				ofwF7App.popup($html);
+				$$(".event-create .close-self").on('click', function(){
+					ofwF7App.closeModal('.popup.event-create');
+				})
+				$$("#event-location").on('click', function() {
+					$.get("pages/event-location-search.html", function(location) {
+						$html = '<div class="popup event-location">' + location + "</div>";
+						ofwF7App.popup($html);
+						$$(".event-location .close-self").on('click', function(){
+							ofwF7App.closeModal('.popup.event-location');
+						})
+
+					});
+				})
 
 			});
 		});
+
+
 
 		cb(null);
 		console.log("controls loaded");
