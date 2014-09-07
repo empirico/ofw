@@ -26,7 +26,7 @@ var ctrl_location = {
 								$(data.response.venues).each(function(i, el){
 									item = Mustache.render(ofwConfig.templates.search_item, el)
 									$item = $(item);
-									$item.click(function(){})
+									$item.click(ctrl_location.add_location)
 									$container.append($item);
 								})
 								$("#event-location-create .preloader").addClass("hide");
@@ -49,5 +49,14 @@ var ctrl_location = {
 		).fail(function(){
 			console.log("failed_search");
 		})
+	},
+	add_location: function(e) {
+		console.log(e, this)
+		ofwF7App.closeModal('.popup.event-location');
+		$target = $(this).find(".item-title");
+		$("#event-location").val($target.data("name"));
+		$("#event-location-ll").val($target.data("ll"));
+		$("#event-location-address").val($target.data("addr"));
+
 	}
 }
