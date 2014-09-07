@@ -18,9 +18,17 @@ var ofwConfig = {
 				cb(null);
 			})
 		}
+
+		if (typeof ofwConfig.templates.search_item == "undefined") {
+			template_list.push(function(cb){
+				$.get("tpl/search_item.html", function(tpl) { ofwConfig.templates.search_item = tpl; });
+				cb(null);
+			})
+		}
 		async.series(template_list, function(){
 			callback();
 		});
 	},
-	templates: {}
+	templates: {},
+
 };

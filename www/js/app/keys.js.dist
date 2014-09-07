@@ -1,0 +1,13 @@
+var ofwKeys = {
+	fs: {
+		//https://api.foursquare.com/v2/venues/search?client_id=XXXXX&client_secret=XXXXX&v=20130815&ll=40.7,-74&query=sushi
+		client_id: '',
+		client_secret: '',
+		webservice: 'https://api.foursquare.com/v2/venues/search?',
+		radius: 5000,
+		url: function(ll, query) {
+			return ofwKeys.fs.webservice + "client_id=" + ofwKeys.fs.client_id + "&client_secret=" + ofwKeys.fs.client_secret + "&v=20130815&ll=" + ll + "&radius=" + ofwKeys.fs.radius + "&query=" + query;
+		}
+	
+	}
+}
