@@ -3,6 +3,7 @@ var ofwConfig = {
 	webservice : 'json',
 	events : [],
 	search_filter: {},
+	language : 'en-GB',
 	load_templates: function(callback) {
 		var template_list = [];
 		if (typeof ofwConfig.templates.event_item == "undefined") {
